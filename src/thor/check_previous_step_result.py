@@ -25,7 +25,7 @@ def check_previous_step_result(base_jenkins_url, name_of_the_job,
     release_version = "UNKNOWN"
     result = "UNKNOWN"
 
-    url = f"http://{base_jenkins_url}:6579/job/{name_of_the_job}/lastBuild/api/json"
+    url = f"http://{base_jenkins_url}:8080/job/{name_of_the_job}/lastBuild/api/json"
     try:
         jsonOutput = requests.get(url, auth=(username,jenkins_api_token)).text
         # get release version
