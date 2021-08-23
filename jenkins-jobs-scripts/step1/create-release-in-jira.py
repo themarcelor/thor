@@ -12,14 +12,15 @@ jira = JIRA(
 monthinteger = int(os.environ["RELEASE_VERSION"].split(".")[1])
 month = datetime.date(1900, monthinteger, 1).strftime("%B")
 
-result = jira.create_version(
-    "{}".format(os.environ["RELEASE_VERSION"]),
-    os.environ["JIRA_PROJECT"],
-    description="[Thor testing] Gen3 Release - {}".format(month),
-    releaseDate=None,
-    startDate=None,
-    archived=False,
-    released=False,
-)
+print('simulating release creation!')
+#result = jira.create_version(
+#    "{}".format(os.environ["RELEASE_VERSION"]),
+#    os.environ["JIRA_PROJECT"],
+#    description="[Thor testing] Gen3 Release - {}".format(month),
+#    releaseDate=None,
+#    startDate=None,
+#    archived=False,
+#    released=False,
+#)
 
-print("result: {}".format(result))
+#print("result: {}".format(result))
