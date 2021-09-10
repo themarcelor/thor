@@ -86,13 +86,15 @@ expected_output_for_get_tasks = {
     ]
 }
 
-
+# TODO: Create assertion based on contents of read_all_releases_output.json
 def test_read_releases():
     response = client.get("/releases")
     assert response.status_code == 200
     assert response.json() == expected_output_for_get_releases
 
 
+# TODO: Create assertion based on contents of read_release_3_output.json
+# TODO: Create assertion based on contents of read_release_4_output.json
 @pytest.mark.parametrize("release_id", [3, 4])
 def test_read_single_release(release_id):
     response = client.get(f"/releases/{release_id}")
@@ -108,6 +110,7 @@ def test_read_single_release(release_id):
     assert response.json() == json.loads(expected_output_for_get_release)
 
 
+# TODO: Create assertion based on contents of read_all_tasks_output.json
 def test_get_tasks():
     response = client.get("/tasks")
     assert response.status_code == 200
