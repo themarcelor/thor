@@ -11,6 +11,7 @@ from thor.dao.release_dao import release_id_lookup_class
 logging.basicConfig(level=os.environ.get("LOGLEVEL", "INFO"))
 log = logging.getLogger(__name__)
 
+
 class JenkinsJobManager(JobManager):
     def __init__(self, base_jenkins_url="https://jenkins2.planx-pla.net/job", **kwargs):
         """
@@ -53,9 +54,7 @@ class JenkinsJobManager(JobManager):
     def assemble_url(self, job_name, job_parameters):
         """Takes in job_parameters to assemble a URL that transforms the parameters dictionary 
         into a buildWithParameters URL containing the sequence of parameter key and value."""
-        url = (
-            f"{self.base_jenkins_url}/{job_name}/buildWithParameters?token={self.jenkins_job_token}"
-        )
+        url = f"{self.base_jenkins_url}/{job_name}/buildWithParameters?token={self.jenkins_job_token}"
         for k, v in job_parameters.items():
             url += f"&{k}={v}"
         # omitting the token from the url
@@ -64,7 +63,7 @@ class JenkinsJobManager(JobManager):
         )
         log.debug(f"the url has been assembled: {sanitized_url}")
         return url
-    
+
     def check_result_of_job(self, job_name, expected_release_version):
         release_version = "UNKNOWN"
         print(f"checking the results of the jenkins job {job_name}")
@@ -131,6 +130,13 @@ class JenkinsJobManager(JobManager):
             update_task(expected_key, "status", result)
         else:
             create_task(job_name, result, corresponding_release_id)
+
+    def process_results(self, job_info_dict):
+        # check job result here
+        # TODO: set different polling settings for different jenkins jobs
+        # TODO: handle an unsuccessful result
+        # self.do_polling("success", 600, 5, self.check_result_of_job, job_info_dict["job_name"], job_info_dict["expected_release_version"])
+        print("hello")
 
 
 if __name__ == "__main__":

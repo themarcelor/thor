@@ -66,24 +66,16 @@ class Scheduler:
         # Replace following code with methods to call the Jenkins job and
         # keep polling Jenkins until we get a successful run of the newest job.
 
-        print("FDV created")
         for step_name, step_info in futures_dict_verbose.items():
 
             log.debug("time:", dt.datetime.now())
             loop.run_until_complete(step_info["future_reference"])
 
             log.debug(f"job step {step_name} is complete. ")
-            job_name = step_info["step_info"]["job_name"]
-            expected_version = "2021.09"  # Temporary for testing purposes
 
-            # while True:
-            #     time.sleep(5)
-            #     result = JenkinsJobManager().check_result_of_job(
-            #         job_name, expected_version
-            #     )
-
-            # print(result)
-        print("all done here in sched")
+            jjm = JenkinsJobManager()
+            print(step_info)
+            jjm.process_results(step_info)
 
     def schedule_job_cron(self, step_info_dict, loop):
         """ Schedules a job with a cron_input """
